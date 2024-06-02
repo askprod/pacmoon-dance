@@ -8,11 +8,13 @@
   <% if current_connected? %>
   var __current_user = "<%= current_user.name.to_s %>"
   <% end %>
+
   var __global_pacmoon_logos = <%= raw({
-    pacmoon_: { img: asset_path('hand1.png') },
-    pacmoon_: { img:  asset_path('hand2.png') },
-    pacmoon_: { img: asset_path('hand3.png') },
-    pacmoon_: { img: asset_path('heart1.png') }
+    pacmoon_1: { img: asset_path('hand1.png') },
+    pacmoon_2: { img:  asset_path('hand2.png') },
+    pacmoon_3: { img: asset_path('hand3.png') },
+    pacmoon_4: { img: asset_path('heart1.png') }
   }.to_json) %>;
+
   var __other_participants = <%= raw(participants.to_json) %>;
 </script>

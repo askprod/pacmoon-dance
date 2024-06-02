@@ -13,12 +13,12 @@ let images = [];
 let loadedImages = 0;
 let imageStarsCount = 0; // Counter for the number of image stars
 let flashInterval; // Interval ID for periodic flashing
+let twitterInterval;
 
 function loadImages(paths, callback) {
   paths.forEach(item => {
     let img = new Image();
     img.onload = () => {
-      console.log('Image loaded:', item.img); // Debug log
       loadedImages++;
       if (loadedImages === paths.length) {
         callback();
@@ -90,7 +90,6 @@ function initStars(numStars) {
 
   // Add one image from each __other_participants with specific flash colors
   Object.entries(__other_participants).forEach(([key, participant]) => {
-    console.log('Participant:', key, participant); // Debug log
     const img = new Image();
     img.src = participant.img;
     const originalImageRadius = Math.random() * 20 + 50; // Calculate original radius for each star
@@ -301,7 +300,8 @@ function crazySpin() {
     // Limit the maximum speed of stars
     const maxSpeed = 10;
     const minSpeed = 0.1; // Minimum speed for stars
-    star.speed = Math.min(Math.random() * maxSpeed + minSpeed, maxSpeed);
+    const speed =  Math.min(Math.random() * maxSpeed + minSpeed, maxSpeed);
+    star.speed = speed;
 
     star.angle = Math.random() * Math.PI * 2;
     star.color = star.image ? star.color : getRandomColor();
@@ -367,13 +367,14 @@ function startPeriodicFlashing() {
 
   setTimeout(function() {
     flashInterval = setInterval(flashRandomImages, 950);
-    setRandomTwitterHandle();
+    twitterInterval = setInterval(setRandomTwitterHandle, 950);
   }, 600); // Other synced claps
 }
 
 // Stop periodic flashing for the loop audio
 function stopPeriodicFlashing() {
   clearInterval(flashInterval);
+  clearInterval(twitterInterval);
 }
 
 window.addEventListener('resize', () => {
@@ -407,7 +408,6 @@ const btnTexts = [
 
 function changeButtonText(event) {
   var button = event.target;
-  console.log(event.target)
     let currentText = button.textContent;
     let newText = currentText;
 
@@ -557,15 +557,8 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.setRequestHeader('Content-Type', 'application/json');
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     xhr.setRequestHeader('X-CSRF-Token', csrfToken); // Include CSRF token
-    xhr.onload = function() {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        console.log('Color updated successfully.');
-      } else {
-        console.error('Error updating color.');
-      }
-    };
     xhr.onerror = function() {
-      console.error('Request failed.');
+      console.error('Color change failed.');
     };
     xhr.send(JSON.stringify({ user: {color: color} }));
   }
@@ -573,7 +566,6 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateColor(color) {
     const circles = document.querySelectorAll('.color-choice');
     circles.forEach(function(circle) {
-      console.log(circle)
       circle.classList.remove('border-2', 'border-yellow-400', 'ring-2', 'ring-yellow-400');
       if (circle.classList.contains(`color-${color}`)) {
         circle.classList.add('border-2', 'border-yellow-400', 'ring-2', 'ring-yellow-400');
