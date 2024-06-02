@@ -70,8 +70,6 @@ end
 
 gem "tailwindcss-rails", "~> 2.6"
 
-gem "omniauth-twitter", "~> 1.4"
-
 gem "twitter", "~> 8.1"
 
 gem "omniauth", "~> 2.1"
@@ -83,3 +81,4 @@ gem "httparty", "~> 0.22.0"
 gem "openai", "~> 0.3.0"
 
 gem 'dotenv-rails'
+gem "omniauth-twitter2", "~> 0.1.0"
