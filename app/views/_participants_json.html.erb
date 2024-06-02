@@ -5,9 +5,7 @@
 %>
 
 <script>
-  <% if current_connected? %>
-  var __current_user = "<%= current_user.name.to_s %>"
-  <% end %>
+  var __current_user = "<%= current_connected? ? current_user.name.to_s : ""%>"
 
   var __global_pacmoon_logos = <%= raw({
     pacmoon_1: { img: asset_path('hand1.png') },
