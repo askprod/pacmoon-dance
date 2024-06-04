@@ -89,7 +89,7 @@ function initStars(numStars) {
   }
 
   // Add one image from each __other_participants with specific flash colors
-  Object.entries(__other_participants).forEach(([key, participant]) => {
+  Object.entries({ ...__other_participants, ...__other_custom_participants }).forEach(([key, participant]) => {
     const img = new Image();
     img.src = participant.img;
     const originalImageRadius = Math.random() * 20 + 50; // Calculate original radius for each star
@@ -387,7 +387,7 @@ window.addEventListener('resize', () => {
   initStars(500);
 });
 
-const allParticipants = { ...__global_pacmoon_logos, ...__other_participants };
+const allParticipants = { ...__global_pacmoon_logos, ...__other_participants, ...__other_custom_participants };
 
 // Load images and start animation after all images are loaded
 loadImages(Object.values(allParticipants), () => {

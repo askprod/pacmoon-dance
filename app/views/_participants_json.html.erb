@@ -1,5 +1,5 @@
 <%
-  participants = User.all.map do |user|
+  other_participants = User.all.map do |user|
     [user.name, { name: user.name, img: user.image_url, color: user.color }]
   end.to_h
 %>
@@ -14,5 +14,16 @@
     pacmoon_4: { img: asset_path('heart1.png') }
   }.to_json) %>;
 
-  var __other_participants = <%= raw(participants.to_json) %>;
+  var __other_custom_participants = <%= raw({
+    pelham_new_blast_city: {
+      img: "https://pbs.twimg.com/media/GPQkvnmbAAAgylG?format=jpg&name=medium",
+      color: "red"
+    },
+    pelham_mooncat: {
+      img: "https://pbs.twimg.com/profile_images/1783175524296335360/RqseG2hZ_400x400.jpg",
+      color: "magenta"
+    },
+  }.to_json) %>;
+
+  var __other_participants = <%= raw(other_participants.to_json) %>;
 </script>
