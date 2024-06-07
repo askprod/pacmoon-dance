@@ -88,8 +88,8 @@ function initStars(numStars) {
     imageCount++;
   }
 
-  // Add one image from each __other_participants with specific flash colors
-  Object.entries({ ...__other_participants, ...__other_custom_participants }).forEach(([key, participant]) => {
+  // Add one image from each __user_participants with specific flash colors
+  Object.entries({ ...__user_participants, ...__other_custom_participants }).forEach(([key, participant]) => {
     const img = new Image();
     img.src = participant.img;
     const originalImageRadius = Math.random() * 20 + 50; // Calculate original radius for each star
@@ -350,7 +350,7 @@ function flashRandomImages() {
 }
 
 function setRandomTwitterHandle() {
-  const userNames = Object.keys(__other_participants);
+  const userNames = Object.keys(__user_participants);
   const randomUserName = userNames[Math.floor(Math.random() * userNames.length)];
   const linkElement = document.getElementById('twitter-handle');
   linkElement.textContent = `@${randomUserName}`;
@@ -387,7 +387,7 @@ window.addEventListener('resize', () => {
   initStars(500);
 });
 
-const allParticipants = { ...__global_pacmoon_logos, ...__other_participants, ...__other_custom_participants };
+const allParticipants = { ...__global_pacmoon_logos, ...__user_participants, ...__other_custom_participants };
 
 // Load images and start animation after all images are loaded
 loadImages(Object.values(allParticipants), () => {
